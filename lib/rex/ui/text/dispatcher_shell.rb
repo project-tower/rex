@@ -295,6 +295,7 @@ module DispatcherShell
   # Current words can be found in self.tab_words
   #
   def tab_complete_stub(str)
+    !str.nil? && str.force_encoding('UTF-8')
     items = []
 
     return nil if not str
@@ -341,7 +342,7 @@ module DispatcherShell
       e =~ /^#{str}/
     # Prepend the rest of the command (or it all gets replaced!)
     }.map { |e|
-      tab_words.dup.push(e).join(' ')
+      tab_words.dup.push(e.dup.force_encoding("ASCII-8BIT")).join(' ')
     }
   end
 
